@@ -2662,23 +2662,23 @@ char division(void);
 void __attribute__((picinterrupt(("")))) isr(void) {
         if (T0IF == 1)
     {
-        PORTEbits.RE2 = 0;
-        PORTEbits.RE0 = 1;
-        PORTD = (display[centena]);
+        PORTDbits.RD2 = 0;
+        PORTDbits.RD0 = 1;
+        PORTC = (display[centena]);
         multi = 0b00000001;
 
         if (multi == 0b00000001)
         {
-            PORTEbits.RE0 = 0;
-            PORTEbits.RE1 = 1;
-            PORTD = (display[decena]);
+            PORTDbits.RD0 = 0;
+            PORTDbits.RD1 = 1;
+            PORTC = (display[decena]);
             multi = 0b00000010;
         }
         if (multi == 0b00000010)
         {
-            PORTEbits.RE1 = 0;
-            PORTEbits.RE2 = 1;
-            PORTD = (display[unidad]);
+            PORTDbits.RD1 = 0;
+            PORTDbits.RD2 = 1;
+            PORTC = (display[unidad]);
             multi = 0x00;
         }
         INTCONbits.T0IF = 0;
@@ -2719,13 +2719,13 @@ void setup(void){
     TRISA = 0x00;
     TRISC = 0x00;
     TRISD = 0x00;
-    TRISE = 0x00;
+
 
     PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
     PORTD = 0x00;
-    PORTE = 0x00;
+
 
     OSCCONbits.IRCF2 = 0;
     OSCCONbits.IRCF1 = 1;

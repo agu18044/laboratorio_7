@@ -37,23 +37,23 @@ char division(void);
 void __interrupt() isr(void) {
         if (T0IF == 1) // Interrupcion por la bandera del timer0
     {   
-        PORTEbits.RE2 = 0;  //Display de unidad apagado
-        PORTEbits.RE0 = 1;  //Display de centena encendido
-        PORTD = (display[centena]); //Se muestra valor en centena
+        PORTDbits.RD2 = 0;  //Display de unidad apagado
+        PORTDbits.RD0 = 1;  //Display de centena encendido
+        PORTC = (display[centena]); //Se muestra valor en centena
         multi = 0b00000001;  //cambio de valor en bandera                      
         
         if (multi == 0b00000001) //se prueba bandera de display
         {                         
-            PORTEbits.RE0 = 0;  //Display de centena apagado
-            PORTEbits.RE1 = 1;  //Display de decena encendido
-            PORTD = (display[decena]); //Se muestra valor de decena   
+            PORTDbits.RD0 = 0;  //Display de centena apagado
+            PORTDbits.RD1 = 1;  //Display de decena encendido
+            PORTC = (display[decena]); //Se muestra valor de decena   
             multi = 0b00000010; //cambio de valor en bandera
         }        
         if (multi == 0b00000010)    //se prueba bandera de display
         {                             
-            PORTEbits.RE1 = 0;  //Display de decena apagado
-            PORTEbits.RE2 = 1;  //Display de unidad apagado
-            PORTD = (display[unidad]);  //Se muestra el valor de unidad
+            PORTDbits.RD1 = 0;  //Display de decena apagado
+            PORTDbits.RD2 = 1;  //Display de unidad apagado
+            PORTC = (display[unidad]);  //Se muestra el valor de unidad
             multi = 0x00; //se reinicia la bandera
         }
         INTCONbits.T0IF = 0;  
@@ -94,13 +94,13 @@ void setup(void){
     TRISA = 0x00;   //se colocan los puertos como salidas
     TRISC = 0x00;   
     TRISD = 0x00; 
-    TRISE = 0x00;
+    //TRISE = 0x00;
     //SE LIMPIAN LOS PUERTOS
     PORTA = 0x00;
     PORTB = 0x00;
     PORTC = 0x00;
     PORTD = 0x00;
-    PORTE = 0x00;
+   // PORTE = 0x00;
     //CONFIG RELOJ INTERNO
     OSCCONbits.IRCF2 = 0;
     OSCCONbits.IRCF1 = 1;
